@@ -9,6 +9,7 @@ function Awake(){
 	animator = GetComponent(Animator);
 }
 function Start (){
+transform.position = Vector2.zero;
 }
 
 function FixedUpdate () {
@@ -28,12 +29,21 @@ function FixedUpdate () {
 			transform.localScale.x *= 1;
 		}
 		
+	}else if (Input.GetKey(KeyCode.Space)){
+		direccion = new Vector2(0,1);
+		animator.SetBool("caminar", false);
+		animator.SetBool("salta", true);
+		
 	}else{
 		direccion = Vector2.zero;
+		animator.SetBool("caminar", false);
+		animator.SetBool("salta", false);
+		rigidbody2D.velocity = direccion;
 	}
 		if(direccion != Vector2.zero){
 			direccion *= velocidad; 
 			rigidbody2D.velocity = direccion;
+			
 			seMueve = true;
 			
 		}
