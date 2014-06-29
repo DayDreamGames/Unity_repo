@@ -1,7 +1,6 @@
 ﻿private var seMueve : boolean = false;
 private var direccion : Vector2;
 public var velocidad : float = 5.0;
-public var gravedad : float = 9.8;
 public var animator : Animator;
 public var salto: float = 5.0;
 
@@ -12,6 +11,9 @@ function Start (){
 transform.position = Vector2.zero;
 }
 
+function Update(){
+	rigidbody2D.velocity = new Vector2(0,-(rigidbody2D.gravityScale));
+}
 function FixedUpdate () {
 	if(Input.GetKey(KeyCode.RightArrow)){
 		direccion = new Vector2(1,0);
@@ -56,5 +58,4 @@ function FixedUpdate () {
 		}else{
 			animator.SetBool("caminar", false);
 		}
-	
 }
