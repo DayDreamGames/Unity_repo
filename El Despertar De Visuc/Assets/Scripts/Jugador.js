@@ -36,10 +36,16 @@ function FixedUpdate () {
 		animator.SetBool("caminar", false);
 		animator.SetBool("salta", true);
 		
+	}else if (Input.GetKey(KeyCode.Mouse0)){
+		animator.SetBool("caminar", false);
+		animator.SetBool("salta", false);
+		animator.SetBool("poder1", true);
+		
 	}else{
 		direccion = Vector2.zero;
 		animator.SetBool("caminar", false);
 		animator.SetBool("salta", false);
+		animator.SetBool("poder1", false);
 		rigidbody2D.velocity = direccion;
 	}
 		if(direccion != Vector2.zero){
@@ -52,10 +58,12 @@ function FixedUpdate () {
 		else{
 			seMueve = false;
 			rigidbody2D.velocity = Vector2.zero;
-			}
+		}
 		if(seMueve == true){
 			animator.SetBool("caminar", true);
+			
 		}else{
 			animator.SetBool("caminar", false);
 		}
+		
 }
