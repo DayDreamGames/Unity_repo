@@ -41,12 +41,14 @@ function FixedUpdate () {
 		animator.SetBool("salta", false);
 		animator.SetBool("poder1", true);
 		
+		
 	}else{
 		direccion = Vector2.zero;
 		animator.SetBool("caminar", false);
 		animator.SetBool("salta", false);
 		animator.SetBool("poder1", false);
 		rigidbody2D.velocity = direccion;
+		
 	}
 		if(direccion != Vector2.zero){
 			direccion *= velocidad; 
@@ -66,4 +68,7 @@ function FixedUpdate () {
 			animator.SetBool("caminar", false);
 		}
 		
+}
+
+function OnDrawGizmos(){
 }
