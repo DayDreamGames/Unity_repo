@@ -3,6 +3,7 @@ private var direccion : Vector2;
 public var velocidad : float = 5.0;
 public var animator : Animator;
 public var salto: float = 5.0;
+public var poder1 : GameObject;
 
 function Awake(){
 	animator = GetComponent(Animator);
@@ -36,11 +37,11 @@ function FixedUpdate () {
 		animator.SetBool("caminar", false);
 		animator.SetBool("salta", true);
 		
-	}else if (Input.GetKey(KeyCode.Mouse0)){
+	}else if (Input.GetKeyDown(KeyCode.Mouse0)){
 		animator.SetBool("caminar", false);
 		animator.SetBool("salta", false);
 		animator.SetBool("poder1", true);
-		
+		LanzarPoder();
 		
 	}else{
 		direccion = Vector2.zero;
@@ -69,6 +70,12 @@ function FixedUpdate () {
 		}
 		
 }
-
+function LanzarPoder(){
+	var temp : Poder1;
+	var pos : Vector2;
+	pos  = new Vector2(transform.position.x+0.7,transform.position.y);
+	Instantiate(poder1,pos,Quaternion.identity);
+	temp.Update();
+}
 function OnDrawGizmos(){
 }
