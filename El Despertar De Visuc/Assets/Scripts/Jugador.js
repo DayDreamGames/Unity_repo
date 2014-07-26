@@ -9,7 +9,7 @@ function Awake(){
 	animator = GetComponent(Animator);
 }
 function Start (){
-transform.position = Vector2.zero;
+	transform.position = Vector2.zero;
 }
 
 function Update(){
@@ -79,3 +79,4 @@ function LanzarPoder(){
 }
 function OnDrawGizmos(){
 }
+
