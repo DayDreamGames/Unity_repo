@@ -20,9 +20,12 @@ function Update() {
 }
 
 function OnTriggerEnter2D(collision : Collider2D){
-	if(collision.gameObject.tag == "Terreno"){
+	if(collision.gameObject.tag == "Terreno" || collision.gameObject.tag == "enemigo"){
 		animator.SetBool("contacto", true);
 		colisiona = true;
+		if(collision.gameObject.tag == "enemigo"){
+			Destroy(collision.gameObject);
+		}	
 		yield WaitForSeconds(0.5);
 		Destroy(gameObject);
 	}
