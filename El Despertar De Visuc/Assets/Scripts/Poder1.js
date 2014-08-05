@@ -24,6 +24,10 @@ function OnTriggerEnter2D(collision : Collider2D){
 		animator.SetBool("contacto", true);
 		colisiona = true;
 		if(collision.gameObject.tag == "enemigo"){
+			if(collision.gameObject.name == "zombie"){
+				collision.gameObject.GetComponent(Animator).SetBool("Tocado", true);
+			}
+			yield WaitForSeconds(0.35);
 			Destroy(collision.gameObject);
 		}	
 		yield WaitForSeconds(0.5);
