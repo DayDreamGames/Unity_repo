@@ -2,8 +2,11 @@
 public var animator : Animator;
 private var direccion : Vector2;
 private var colisiona : boolean;
+private var player : Jugador;
 
 function Start () {
+	var playerComp : GameObject = GameObject.FindWithTag("Player");
+	player = playerComp.GetComponent(Jugador);
 	animator = GetComponent(Animator);
 	colisiona = false;
 }
@@ -29,7 +32,8 @@ function OnTriggerEnter2D(collision : Collider2D){
 			}
 			yield WaitForSeconds(0.35);
 			Destroy(collision.gameObject);
-		}	
+			player.AgregarPuntaje(10);
+		}
 		yield WaitForSeconds(0.5);
 		Destroy(gameObject);
 	}

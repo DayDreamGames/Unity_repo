@@ -4,16 +4,21 @@ public var velocidad : float = 5.0;
 public var animator : Animator;
 public var salto: float = 5.0;
 public var poder1 : GameObject;
+public var scoreText : GUIText;
+private var score : int;
 
 function Awake(){
 	animator = GetComponent(Animator);
 }
 function Start (){
+	score = 0;
 	transform.position = Vector2.zero;
+	ActualizarScore();
 }
 
 function Update(){
 	rigidbody2D.velocity = new Vector2(0,-(rigidbody2D.gravityScale));
+	ActualizarScore();
 }
 function FixedUpdate () {
 	if(Input.GetKey(KeyCode.RightArrow)){
@@ -80,3 +85,11 @@ function LanzarPoder(){
 function OnDrawGizmos(){
 }
 
+function AgregarPuntaje(puntaje : int){
+	score += puntaje;
+	ActualizarScore();
+}
+
+function ActualizarScore(){
+	scoreText.text = "Score: " + score;
+}
