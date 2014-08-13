@@ -3,6 +3,7 @@ private var direccion : Vector2;
 public var velocidad : float = 5.0;
 public var animator : Animator;
 public var salto: float = 5.0;
+public var canjump : boolean = true;
 public var poder1 : GameObject;
 public var scoreText : GUIText;
 private var score : int;
@@ -28,6 +29,13 @@ function FixedUpdate () {
 		}else{
 			transform.localScale.x *= 1;
 		}
+		if ((Input.GetKeyDown(KeyCode.Space) && canjump)){
+		direccion = new Vector2(0,0.5*rigidbody2D.gravityScale);
+		canjump = false;
+		animator.SetBool("caminar", false);
+		animator.SetBool("salta", true);
+		
+		}
 	}
 	else if (Input.GetKey(KeyCode.LeftArrow)){
 		direccion = new Vector2(-1,0);
@@ -36,12 +44,20 @@ function FixedUpdate () {
 		}else{
 			transform.localScale.x *= 1;
 		}
-		
-	}else if (Input.GetKey(KeyCode.Space)){
-		direccion = new Vector2(0,1);
+		if ((Input.GetKeyDown(KeyCode.Space) && canjump)){
+		direccion = new Vector2(0,0.5*rigidbody2D.gravityScale);
+		canjump = false;
 		animator.SetBool("caminar", false);
 		animator.SetBool("salta", true);
 		
+	}
+		
+//	}else if ((Input.GetKeyDown(KeyCode.Space) && canjump)){
+//		direccion = new Vector2(0,0.5*rigidbody2D.gravityScale);
+//		canjump = false;
+//		animator.SetBool("caminar", false);
+//		animator.SetBool("salta", true);
+//		
 	}else if (Input.GetKeyDown(KeyCode.Mouse0)){
 		animator.SetBool("caminar", false);
 		animator.SetBool("salta", false);
@@ -92,4 +108,10 @@ function AgregarPuntaje(puntaje : int){
 
 function ActualizarScore(){
 	scoreText.text = "Score: " + score;
+}
+
+function OnCollisionEnter2D(collground : Collision2D){
+	if (collground.gameObject.tag == "Terreno"){
+		canjump = true;
+	}
 }
