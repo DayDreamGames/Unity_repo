@@ -44,12 +44,12 @@ function FixedUpdate () {
 		}else{
 			transform.localScale.x *= 1;
 		}
-<<<<<<< HEAD
+
 		if ((Input.GetKeyDown(KeyCode.Space) && canjump)){
-=======
+
 		
 	}else if (Input.GetKey(KeyCode.Space) && canjump){
->>>>>>> origin/master
+
 		direccion = new Vector2(0,0.5*rigidbody2D.gravityScale);
 		canjump = false;
 		animator.SetBool("caminar", false);
@@ -115,16 +115,16 @@ function ActualizarScore(){
 	scoreText.text = "Score: " + score;
 }
 
-<<<<<<< HEAD
+
 function OnCollisionEnter2D(collground : Collision2D){
 	if (collground.gameObject.tag == "Terreno"){
 		canjump = true;
 	}
 }
-=======
+
 function OnTrigger(collground : Collider2D){
 	if (collground.gameObject.tag == "Terreno"){
 		canjump = true;
 	}
 }
->>>>>>> origin/master
+
