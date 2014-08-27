@@ -8,7 +8,7 @@ public var poder1 : GameObject;
 public var scoreText : GUIText;
 private var score : int;
 
-function Awake(){
+function Awake (){
 	animator = GetComponent(Animator);
 }
 function Start (){
@@ -17,7 +17,7 @@ function Start (){
 	ActualizarScore();
 }
 
-function Update(){
+function Update (){
 	rigidbody2D.velocity = new Vector2(0,-(rigidbody2D.gravityScale));
 	ActualizarScore();
 }
@@ -30,7 +30,7 @@ function FixedUpdate () {
 			transform.localScale.x *= 1;
 		}
 		if ((Input.GetKeyDown(KeyCode.Space) && canjump)){
-		direccion = new Vector2(0,0.5*rigidbody2D.gravityScale);
+		direccion = new Vector2(0,0.7*rigidbody2D.gravityScale);
 		canjump = false;
 		animator.SetBool("caminar", false);
 		animator.SetBool("salta", true);
@@ -50,7 +50,7 @@ function FixedUpdate () {
 		
 	}else if (Input.GetKey(KeyCode.Space) && canjump){
 
-		direccion = new Vector2(0,0.5*rigidbody2D.gravityScale);
+		direccion = new Vector2(0,0.7*rigidbody2D.gravityScale);
 		canjump = false;
 		animator.SetBool("caminar", false);
 		animator.SetBool("salta", true);
