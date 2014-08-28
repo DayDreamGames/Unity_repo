@@ -15,6 +15,7 @@ function Start () {
 function Update () {
 	if(animator.GetBool("Tocado")){
 		animator.SetBool("moverZombie", false);
+		
 	}
 	Mirar();
 	if (Time.time >= tChange){

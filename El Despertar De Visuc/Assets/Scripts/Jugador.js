@@ -27,13 +27,15 @@ function Update (){
 }
 function FixedUpdate () {
 	if(Input.touches.Length <= 0){
-		
+		seMueve = false;
+		rigidbody2D.velocity = Vector2.zero;
 	}else{
 		for(var i : int = 0; i < Input.touchCount; i++){
 		
 			if(GUI_Der.guiTexture.HitTest(Input.GetTouch(i).position)){
-				if(Input.GetTouch(i).phase == TouchPhase.Began){
-					direccion = new Vector2(1,0);
+				if(Input.GetTouch(i).phase == TouchPhase.Stationary){
+					transform.position += transform.right * velocidad * Time.deltaTime;
+					seMueve = true;
 					if(transform.localScale.x < 0){//si el jugador esta mirando a la izquierda(aca lo comprueba por la escala y si esta mirando a la izquierda lo voltea a la derecha)
 						transform.localScale.x *= -1;
 					}else{
@@ -50,8 +52,9 @@ function FixedUpdate () {
 				}
 			}
 			else if (GUI_Izq.guiTexture.HitTest(Input.GetTouch(i).position)){
-				if(Input.GetTouch(i).phase == TouchPhase.Began){
-					direccion = new Vector2(-1,0);
+				if(Input.GetTouch(i).phase == TouchPhase.Stationary){
+					transform.position -= transform.right * velocidad * Time.deltaTime;
+					seMueve = true;
 					if(transform.localScale.x > 0){
 						transform.localScale.x *= -1;
 					}else{
@@ -95,12 +98,8 @@ function FixedUpdate () {
 				direccion *= velocidad; 
 				rigidbody2D.velocity = direccion;
 				
-				seMueve = true;
 				
-			}
-			else{
-				seMueve = false;
-				rigidbody2D.velocity = Vector2.zero;
+				
 			}
 			if(seMueve == true){
 				animator.SetBool("caminar", true);
@@ -114,7 +113,11 @@ function FixedUpdate () {
 function LanzarPoder(){
 	var temp : Poder1;
 	var pos : Vector2;
-	pos  = new Vector2(transform.position.x+0.7,transform.position.y);
+	if(transform.localScale.x > 0){
+		pos  = new Vector2(transform.position.x+0.7,transform.position.y);
+	}else{
+		pos  = new Vector2(transform.position.x-0.7,transform.position.y);
+	}
 	Instantiate(poder1,pos,Quaternion.identity);
 	temp.Update();
 }
