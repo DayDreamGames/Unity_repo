@@ -7,6 +7,10 @@ public var canjump : boolean = true;
 public var poder1 : GameObject;
 public var scoreText : GUIText;
 private var score : int;
+public var GUI_Izq : GUITexture;
+public var GUI_Der : GUITexture;
+public var GUI_Salto : GUITexture;
+public var GUI_Ata : GUITexture;
 
 function Awake (){
 	animator = GetComponent(Animator);
@@ -22,79 +26,90 @@ function Update (){
 	ActualizarScore();
 }
 function FixedUpdate () {
-	if(Input.GetKey(KeyCode.RightArrow)){
-		direccion = new Vector2(1,0);
-		if(transform.localScale.x < 0){//si el jugador esta mirando a la izquierda(aca lo comprueba por la escala y si esta mirando a la izquierda lo voltea a la derecha)
-			transform.localScale.x *= -1;
-		}else{
-			transform.localScale.x *= 1;
-		}
-		if ((Input.GetKeyDown(KeyCode.Space) && canjump)){
-		direccion = new Vector2(0,0.7*rigidbody2D.gravityScale);
-		canjump = false;
-		animator.SetBool("caminar", false);
-		animator.SetBool("salta", true);
-		
-		}
-	}
-	else if (Input.GetKey(KeyCode.LeftArrow)){
-		direccion = new Vector2(-1,0);
-		if(transform.localScale.x > 0){
-			transform.localScale.x *= -1;
-		}else{
-			transform.localScale.x *= 1;
-		}
-
-		if ((Input.GetKeyDown(KeyCode.Space) && canjump)){
-
-		
-	}else if (Input.GetKey(KeyCode.Space) && canjump){
-
-		direccion = new Vector2(0,0.7*rigidbody2D.gravityScale);
-		canjump = false;
-		animator.SetBool("caminar", false);
-		animator.SetBool("salta", true);
-		
-	}
-		
-//	}else if ((Input.GetKeyDown(KeyCode.Space) && canjump)){
-//		direccion = new Vector2(0,0.5*rigidbody2D.gravityScale);
-//		canjump = false;
-//		animator.SetBool("caminar", false);
-//		animator.SetBool("salta", true);
-//		
-	}else if (Input.GetKeyDown(KeyCode.Mouse0)){
-		animator.SetBool("caminar", false);
-		animator.SetBool("salta", false);
-		animator.SetBool("poder1", true);
-		LanzarPoder();
+	if(Input.touches.Length <= 0){
 		
 	}else{
-		direccion = Vector2.zero;
-		animator.SetBool("caminar", false);
-		animator.SetBool("salta", false);
-		animator.SetBool("poder1", false);
-		rigidbody2D.velocity = direccion;
+		for(var i : int = 0; i < Input.touchCount; i++){
 		
-	}
-		if(direccion != Vector2.zero){
-			direccion *= velocidad; 
-			rigidbody2D.velocity = direccion;
+			if(GUI_Der.guiTexture.HitTest(Input.GetTouch(i).position)){
+				if(Input.GetTouch(i).phase == TouchPhase.Began){
+					direccion = new Vector2(1,0);
+					if(transform.localScale.x < 0){//si el jugador esta mirando a la izquierda(aca lo comprueba por la escala y si esta mirando a la izquierda lo voltea a la derecha)
+						transform.localScale.x *= -1;
+					}else{
+						transform.localScale.x *= 1;
+					}
+					if ((GUI_Salto.guiTexture.HitTest(Input.GetTouch(i).position) && canjump)){
+						if(Input.GetTouch(i).phase == TouchPhase.Began){
+							direccion = new Vector2(0,0.7*rigidbody2D.gravityScale);
+							canjump = false;
+							animator.SetBool("caminar", false);
+							animator.SetBool("salta", true);
+						}
+					}
+				}
+			}
+			else if (GUI_Izq.guiTexture.HitTest(Input.GetTouch(i).position)){
+				if(Input.GetTouch(i).phase == TouchPhase.Began){
+					direccion = new Vector2(-1,0);
+					if(transform.localScale.x > 0){
+						transform.localScale.x *= -1;
+					}else{
+						transform.localScale.x *= 1;
+					}
+
+					if ((GUI_Salto.guiTexture.HitTest(Input.GetTouch(i).position) && canjump)){
+						if(Input.GetTouch(i).phase == TouchPhase.Began){
+							direccion = new Vector2(0,0.7*rigidbody2D.gravityScale);
+							canjump = false;
+							animator.SetBool("caminar", false);
+							animator.SetBool("salta", true);
+						}
+					}
+				}
 			
-			seMueve = true;
+			}else if ((GUI_Salto.guiTexture.HitTest(Input.GetTouch(i).position) && canjump)){
+				if(Input.GetTouch(i).phase == TouchPhase.Began){
+					direccion = new Vector2(0,0.7*rigidbody2D.gravityScale);
+					canjump = false;
+					animator.SetBool("caminar", false);
+					animator.SetBool("salta", true);
+				}
+			}else if (GUI_Ata.guiTexture.HitTest(Input.GetTouch(i).position)){
+				if(Input.GetTouch(i).phase == TouchPhase.Began){
+					animator.SetBool("caminar", false);
+					animator.SetBool("salta", false);
+					animator.SetBool("poder1", true);
+					LanzarPoder();
+				}
 			
-		}
-		else{
-			seMueve = false;
-			rigidbody2D.velocity = Vector2.zero;
-		}
-		if(seMueve == true){
-			animator.SetBool("caminar", true);
+			}else{
+				direccion = Vector2.zero;
+				animator.SetBool("caminar", false);
+				animator.SetBool("salta", false);
+				animator.SetBool("poder1", false);
+				rigidbody2D.velocity = direccion;
 			
-		}else{
-			animator.SetBool("caminar", false);
+			}
+			if(direccion != Vector2.zero){
+				direccion *= velocidad; 
+				rigidbody2D.velocity = direccion;
+				
+				seMueve = true;
+				
+			}
+			else{
+				seMueve = false;
+				rigidbody2D.velocity = Vector2.zero;
+			}
+			if(seMueve == true){
+				animator.SetBool("caminar", true);
+				
+			}else{
+				animator.SetBool("caminar", false);
+			}	
 		}
-		
+	}	
 }
 function LanzarPoder(){
 	var temp : Poder1;
