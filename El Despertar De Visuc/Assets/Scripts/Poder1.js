@@ -3,8 +3,11 @@ public var animator : Animator;
 private var direccion : Vector2;
 private var colisiona : boolean;
 private var player : Jugador;
+private var Boss : Boss01;
 
 function Start () {
+	var levelBoss_01 : GameObject = GameObject.FindWithTag("Boss");
+	Boss = levelBoss_01.GetComponent(Boss01);
 	var playerComp : GameObject = GameObject.FindWithTag("Player");
 	player = playerComp.GetComponent(Jugador);
 	animator = GetComponent(Animator);
@@ -29,7 +32,7 @@ function Update() {
 }
 
 function OnTriggerEnter2D(collision : Collider2D){
-	if(collision.gameObject.tag == "Terreno" || collision.gameObject.tag == "enemigo"){
+	if(collision.gameObject.tag == "Terreno" || collision.gameObject.tag == "enemigo" || collision.gameObject.tag == "Boss"){
 		animator.SetBool("contacto", true);
 		colisiona = true;
 		if(collision.gameObject.tag == "enemigo"){
@@ -43,6 +46,9 @@ function OnTriggerEnter2D(collision : Collider2D){
 		}
 		yield WaitForSeconds(0.5);
 		Destroy(gameObject);
+		if(collision.gameObject.tag == "Boss"){
+			Boss.QuitarSalud();
+		}
 	}
 }
 

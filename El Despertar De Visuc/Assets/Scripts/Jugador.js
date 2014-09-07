@@ -11,21 +11,26 @@ public var GUI_Izq : GUITexture;
 public var GUI_Der : GUITexture;
 public var GUI_Salto : GUITexture;
 public var GUI_Ata : GUITexture;
+private var grav;
 
 function Awake (){
 	animator = GetComponent(Animator);
 }
 function Start (){
+	grav = rigidbody2D.gravityScale;
 	score = 0;
 	transform.position = Vector2.zero;
 	ActualizarScore();
 }
 
 function Update (){
-	rigidbody2D.velocity = new Vector2(0,-(rigidbody2D.gravityScale));
+	if(Input.GetKey(KeyCode.A)){
+		LanzarPoder();
+	}
 	ActualizarScore();
 }
 function FixedUpdate () {
+
 	if(Input.touches.Length <= 0){
 		seMueve = false;
 		rigidbody2D.velocity = Vector2.zero;
@@ -43,10 +48,13 @@ function FixedUpdate () {
 					}
 					if ((GUI_Salto.guiTexture.HitTest(Input.GetTouch(i).position) && canjump)){
 						if(Input.GetTouch(i).phase == TouchPhase.Began){
-							direccion = new Vector2(0,0.7*rigidbody2D.gravityScale);
+							transform.position += transform.up * 15 * Time.deltaTime;
+							rigidbody2D.gravityScale = 0;
 							canjump = false;
 							animator.SetBool("caminar", false);
 							animator.SetBool("salta", true);
+						}else{
+							rigidbody2D.gravityScale = grav;
 						}
 					}
 				}
@@ -63,20 +71,26 @@ function FixedUpdate () {
 
 					if ((GUI_Salto.guiTexture.HitTest(Input.GetTouch(i).position) && canjump)){
 						if(Input.GetTouch(i).phase == TouchPhase.Began){
-							direccion = new Vector2(0,0.7*rigidbody2D.gravityScale);
+							transform.position += transform.up * 15 * Time.deltaTime;
+							rigidbody2D.gravityScale = 0;
 							canjump = false;
 							animator.SetBool("caminar", false);
 							animator.SetBool("salta", true);
+						}else{
+							rigidbody2D.gravityScale = grav;
 						}
 					}
 				}
 			
 			}else if ((GUI_Salto.guiTexture.HitTest(Input.GetTouch(i).position) && canjump)){
 				if(Input.GetTouch(i).phase == TouchPhase.Began){
-					direccion = new Vector2(0,0.7*rigidbody2D.gravityScale);
+					transform.position += transform.up * 15 * Time.deltaTime;
+					rigidbody2D.gravityScale = 0;
 					canjump = false;
 					animator.SetBool("caminar", false);
 					animator.SetBool("salta", true);
+				}else{
+					rigidbody2D.gravityScale = grav;
 				}
 			}else if (GUI_Ata.guiTexture.HitTest(Input.GetTouch(i).position)){
 				if(Input.GetTouch(i).phase == TouchPhase.Began){
@@ -109,6 +123,7 @@ function FixedUpdate () {
 			}	
 		}
 	}	
+
 }
 function LanzarPoder(){
 	var temp : Poder1;
