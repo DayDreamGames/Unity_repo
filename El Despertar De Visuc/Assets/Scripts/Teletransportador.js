@@ -13,10 +13,10 @@ function Update () {
 function OnTriggerEnter2D(colision : Collider2D){
 
 	if(colision.tag == "Player"){
-		Application.LoadLevel(2);
+		
 		if(tieneLlave == true){
 			//reproducir animacion para pasar al siguiente nivel
-			
+			Application.LoadLevel(2);
 		}
 	}
 

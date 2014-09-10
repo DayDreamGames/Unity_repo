@@ -3,14 +3,13 @@ public var animator : Animator;
 private var direccion : Vector2;
 private var colisiona : boolean;
 private var player : GameObject;
-private var Boss : Boss01;
+private var Boss : GameObject;
 public var puntaje : int = 0;
 public var puntaje10 : GameObject;
-
+public var puntaje15 : GameObject;
 
 function Start () {
-	var levelBoss_01 : GameObject = GameObject.FindWithTag("Boss");
-	Boss = levelBoss_01.GetComponent(Boss01);
+	Boss = GameObject.FindWithTag("Boss");;
 	player = GameObject.FindWithTag("Player");
 	animator = GetComponent(Animator);
 	colisiona = false;
@@ -53,8 +52,9 @@ function OnTriggerEnter2D(collision : Collider2D){
 		else if(collision.gameObject.tag == "Boss"){
 			animator.SetBool("contacto", true);
 			colisiona = true;
-			Boss.QuitarSalud();
+			Boss.GetComponent(Boss01).QuitarSalud();
 			puntaje = 15;
+			Instantiate(puntaje15, Vector2(player.transform.position.x+0.4,player.transform.position.y+0.5),Quaternion.identity);
 		}
 	}
 }

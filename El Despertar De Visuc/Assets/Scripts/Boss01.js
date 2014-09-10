@@ -7,6 +7,10 @@ public var animator : Animator;
 private var miTransform : Transform;
 private var tempScale : Transform;
 private var player : GameObject;
+public var barraSalud25 : GameObject;
+public var barraSalud50 : GameObject;
+public var barraSalud75 : GameObject;
+public var barraSalud100 : GameObject;
 
 function Awake(){
 	miTransform = transform;
@@ -25,6 +29,16 @@ function FixedUpdate () {
 	miTransform.rotation = Quaternion.Slerp(miTransform.rotation, Quaternion.LookRotation(objetivo.position - miTransform.position), rotationSpeed*Time.deltaTime);
 	miTransform.position += miTransform.forward * movVelocidad * Time.deltaTime;	
 	miTransform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, 0, 0);
+	if(salud<=75 && salud >=50){
+		Destroy(barraSalud100);
+	}
+	if(salud<=50 && salud >= 25){
+		Destroy(barraSalud75);
+	}
+	if(salud<=25 && salud >= 0){
+		Destroy(barraSalud50);
+	}
+	
 	
 }
 
@@ -44,7 +58,7 @@ function Mirar(){
 
 function QuitarSalud(){
 	if(salud > 0){
-		salud--;
+		salud -= 10;
 	}
 	if(salud == 0){
 		player.GetComponent(Jugador).setTieneLallave(true);
