@@ -52,6 +52,8 @@
      <Compile Include="Assets\Scripts\Jugador.js" />
      <Compile Include="Assets\Scripts\Menu.js" />
      <Compile Include="Assets\Scripts\Poder1.js" />
+     <Compile Include="Assets\Scripts\SensorSpawn.js" />
+     <Compile Include="Assets\Scripts\Spawn.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
