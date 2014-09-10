@@ -14,6 +14,7 @@ function Awake(){
 }
 
 function Start () {
+	animator.SetBool("moverZombie", true);
 	player = GameObject.FindGameObjectWithTag("Player");
 	objetivo = GameObject.FindGameObjectWithTag("Player").transform;
 	animator = GetComponent(Animator);
@@ -21,16 +22,11 @@ function Start () {
 }
 
 function FixedUpdate () {
-	if(animator.GetBool("Tocado")){
+	if(animator.GetBool("Tocado")==true){
 		animator.SetBool("moverZombie", false);
 		
 	}
 	Mirar();
-	if(transform.position.x != objetivo.position.x){
-     	animator.SetBool("moverZombie", true);
-    }else{
-    	animator.SetBool("moverZombie", false);
-    }
 	miTransform.rotation = Quaternion.Slerp(miTransform.rotation, Quaternion.LookRotation(objetivo.position - miTransform.position), rotationSpeed*Time.deltaTime);
 	miTransform.position += miTransform.forward * movVelocidad * Time.deltaTime;	
 	miTransform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, 0, 0);
@@ -49,4 +45,8 @@ function Mirar(){
 	}	
 	}
 	
+}
+
+function DestroyObject(){
+	Destroy(gameObject);
 }

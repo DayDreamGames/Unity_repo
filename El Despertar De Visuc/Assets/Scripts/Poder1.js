@@ -32,23 +32,31 @@ function Update() {
 }
 
 function OnTriggerEnter2D(collision : Collider2D){
-	if(collision.gameObject.tag == "Terreno" || collision.gameObject.tag == "enemigo" || collision.gameObject.tag == "Boss"){
-		animator.SetBool("contacto", true);
-		colisiona = true;
-		if(collision.gameObject.tag == "enemigo"){
-			if(collision.gameObject.name == "zombie"){
-				collision.audio.Play();
-				collision.gameObject.GetComponent(Animator).SetBool("Tocado", true);
-			}
-			yield WaitForSeconds(0.35);
-			Destroy(collision.gameObject);
-			player.AgregarPuntaje(10);
+	
+	if(collision != null){
+		if(collision.tag == "Terreno"){
+			animator.SetBool("contacto", true);
+			colisiona = true;
 		}
-		yield WaitForSeconds(0.5);
-		Destroy(gameObject);
-		if(collision.gameObject.tag == "Boss"){
+
+		else if( collision.tag == "zombie"){
+			animator.SetBool("contacto", true);
+			colisiona = true;
+			collision.audio.Play();
+			collision.gameObject.GetComponent(Animator).SetBool("Tocado", true);
+			player.AgregarPuntaje(10);
+			
+		}
+			
+		else if(collision.gameObject.tag == "Boss"){
+			animator.SetBool("contacto", true);
+			colisiona = true;
 			Boss.QuitarSalud();
 		}
 	}
+	
 }
 
+function DestroyObject(){
+	Destroy(gameObject);
+}

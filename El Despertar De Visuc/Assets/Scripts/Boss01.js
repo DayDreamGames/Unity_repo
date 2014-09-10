@@ -14,8 +14,8 @@ function Awake(){
 }
 
 function Start () {
-	player = GameObject.FindGameObjectWithTag("Player");
-	objetivo = GameObject.FindGameObjectWithTag("Player").transform;
+	player = GameObject.FindWithTag("Player");
+	objetivo = GameObject.FindWithTag("Player").transform;
 	animator = GetComponent(Animator);
 	tempScale = miTransform;
 }
@@ -47,6 +47,7 @@ function QuitarSalud(){
 		salud--;
 	}
 	if(salud == 0){
+		player.GetComponent(Jugador).setTieneLallave(true);
 		Destroy(gameObject);
 	}
 }

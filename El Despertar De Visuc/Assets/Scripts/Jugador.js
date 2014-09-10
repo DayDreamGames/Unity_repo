@@ -12,11 +12,13 @@ public var GUI_Der : GUITexture;
 public var GUI_Salto : GUITexture;
 public var GUI_Ata : GUITexture;
 private var grav;
+public var tieneLaLlaveDelNivel : boolean;
 
 function Awake (){
 	animator = GetComponent(Animator);
 }
 function Start (){
+	tieneLaLlaveDelNivel = false;
 	grav = rigidbody2D.gravityScale;
 	score = 0;
 	transform.position = Vector2.zero;
@@ -24,8 +26,11 @@ function Start (){
 }
 
 function Update (){
-	if(Input.GetKey(KeyCode.A)){
+	if(Input.GetKeyDown(KeyCode.A)){
 		LanzarPoder();
+	}
+	if(Input.GetKey(KeyCode.D)){
+		transform.position += transform.right * velocidad * Time.deltaTime;
 	}
 	ActualizarScore();
 }
@@ -108,13 +113,6 @@ function FixedUpdate () {
 				rigidbody2D.velocity = direccion;
 			
 			}
-			if(direccion != Vector2.zero){
-				direccion *= velocidad; 
-				rigidbody2D.velocity = direccion;
-				
-				
-				
-			}
 			if(seMueve == true){
 				animator.SetBool("caminar", true);
 				
@@ -126,7 +124,6 @@ function FixedUpdate () {
 
 }
 function LanzarPoder(){
-	var temp : Poder1;
 	var pos : Vector2;
 	if(transform.localScale.x > 0){
 		pos  = new Vector2(transform.position.x+0.7,transform.position.y);
@@ -134,7 +131,7 @@ function LanzarPoder(){
 		pos  = new Vector2(transform.position.x-0.7,transform.position.y);
 	}
 	Instantiate(poder1,pos,Quaternion.identity);
-	temp.Update();
+	poder1.GetComponent(Poder1).Update();
 }
 function OnDrawGizmos(){
 }
@@ -161,3 +158,11 @@ function OnTrigger(collground : Collider2D){
 	}
 }
 
+function setTieneLallave(estado : boolean){
+	this.tieneLaLlaveDelNivel = estado;
+}
+
+function getTieneLallave() : boolean{
+
+	return tieneLaLlaveDelNivel;
+}
