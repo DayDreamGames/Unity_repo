@@ -32,10 +32,8 @@ function Update (){
 	if(Input.GetKey(KeyCode.D)){
 		transform.position += transform.right * velocidad * Time.deltaTime;
 	}
-	ActualizarScore();
 }
 function FixedUpdate () {
-
 	if(Input.touches.Length <= 0){
 		seMueve = false;
 		rigidbody2D.velocity = Vector2.zero;
@@ -137,12 +135,13 @@ function OnDrawGizmos(){
 }
 
 function AgregarPuntaje(puntaje : int){
-	score += puntaje;
+	score = score + puntaje;
 	ActualizarScore();
+	Debug.Log(score);
 }
 
 function ActualizarScore(){
-	scoreText.text = "Score: " + score;
+	scoreText.text = ("Score: " + score);
 }
 
 
