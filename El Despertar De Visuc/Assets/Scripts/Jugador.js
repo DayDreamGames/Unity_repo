@@ -37,6 +37,7 @@ function FixedUpdate () {
 	if(Input.touches.Length <= 0){
 		seMueve = false;
 		rigidbody2D.velocity = Vector2.zero;
+		rigidbody2D.gravityScale = 48;
 	}else{
 		for(var i : int = 0; i < Input.touchCount; i++){
 		
@@ -49,15 +50,16 @@ function FixedUpdate () {
 					}else{
 						transform.localScale.x *= 1;
 					}
-					if ((GUI_Salto.guiTexture.HitTest(Input.GetTouch(i).position) && canjump)){
+					if (GUI_Salto.guiTexture.HitTest(Input.GetTouch(i).position)){
 						if(Input.GetTouch(i).phase == TouchPhase.Began){
 							transform.position += transform.up * 15 * Time.deltaTime;
 							rigidbody2D.gravityScale = 0;
 							canjump = false;
 							animator.SetBool("caminar", false);
 							animator.SetBool("salta", true);
-						}else{
-							rigidbody2D.gravityScale = grav;
+						}
+						if(Input.GetTouch(i).phase == TouchPhase.Ended){
+							rigidbody2D.gravityScale = 48;
 						}
 					}
 				}
@@ -72,28 +74,30 @@ function FixedUpdate () {
 						transform.localScale.x *= 1;
 					}
 
-					if ((GUI_Salto.guiTexture.HitTest(Input.GetTouch(i).position) && canjump)){
+					if (GUI_Salto.guiTexture.HitTest(Input.GetTouch(i).position)){
 						if(Input.GetTouch(i).phase == TouchPhase.Began){
 							transform.position += transform.up * 15 * Time.deltaTime;
 							rigidbody2D.gravityScale = 0;
 							canjump = false;
 							animator.SetBool("caminar", false);
 							animator.SetBool("salta", true);
-						}else{
-							rigidbody2D.gravityScale = grav;
+						}
+						if(Input.GetTouch(i).phase == TouchPhase.Ended){
+							rigidbody2D.gravityScale = 48;
 						}
 					}
 				}
 			
-			}else if ((GUI_Salto.guiTexture.HitTest(Input.GetTouch(i).position) && canjump)){
+			}else if (GUI_Salto.guiTexture.HitTest(Input.GetTouch(i).position)){
 				if(Input.GetTouch(i).phase == TouchPhase.Began){
 					transform.position += transform.up * 15 * Time.deltaTime;
 					rigidbody2D.gravityScale = 0;
 					canjump = false;
 					animator.SetBool("caminar", false);
 					animator.SetBool("salta", true);
-				}else{
-					rigidbody2D.gravityScale = grav;
+				}
+				if(Input.GetTouch(i).phase == TouchPhase.Ended){
+					rigidbody2D.gravityScale = 48;
 				}
 			}else if (GUI_Ata.guiTexture.HitTest(Input.GetTouch(i).position)){
 				if(Input.GetTouch(i).phase == TouchPhase.Began){
@@ -116,7 +120,7 @@ function FixedUpdate () {
 				
 			}else{
 				animator.SetBool("caminar", false);
-			}	
+			}
 		}
 	}	
 

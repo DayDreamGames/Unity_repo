@@ -45,6 +45,7 @@ function OnTriggerEnter2D(collision : Collider2D){
 			colisiona = true;
 			collision.audio.Play();
 			collision.gameObject.GetComponent(Animator).SetBool("Tocado", true);
+			collision.gameObject.GetComponent(Animator).SetBool("muerto", true);
 			puntaje = 10;
 			Instantiate(puntaje10, Vector2(player.transform.position.x+0.4,player.transform.position.y+0.5),Quaternion.identity);
 		}
