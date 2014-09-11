@@ -46,17 +46,17 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\AnimacionPuntajeScript.js" />
-     <Compile Include="Assets\Scripts\Boss01.js" />
-     <Compile Include="Assets\Scripts\Enemy_1.js" />
-     <Compile Include="Assets\Scripts\Enemy_2.js" />
-     <Compile Include="Assets\Scripts\Jugador.js" />
-     <Compile Include="Assets\Scripts\Menu.js" />
-     <Compile Include="Assets\Scripts\Poder1.js" />
-     <Compile Include="Assets\Scripts\SensorSpawn.js" />
-     <Compile Include="Assets\Scripts\Spawn.js" />
-     <Compile Include="Assets\Scripts\Teletransportador.js" />
-     <Compile Include="Assets\Scripts\ZombieIA1.js" />
+     <Compile Include="Assets\Scripts\Extras\AnimacionPuntajeScript.js" />
+     <Compile Include="Assets\Scripts\Extras\Menu.js" />
+     <Compile Include="Assets\Scripts\Extras\SensorSpawn.js" />
+     <Compile Include="Assets\Scripts\Extras\Spawn.js" />
+     <Compile Include="Assets\Scripts\Extras\Teletransportador.js" />
+     <Compile Include="Assets\Scripts\IA\Boss01.js" />
+     <Compile Include="Assets\Scripts\IA\Enemy_1.js" />
+     <Compile Include="Assets\Scripts\IA\Enemy_2.js" />
+     <Compile Include="Assets\Scripts\IA\ZombieIA1.js" />
+     <Compile Include="Assets\Scripts\Player\Jugador.js" />
+     <Compile Include="Assets\Scripts\Player\Poder1.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
