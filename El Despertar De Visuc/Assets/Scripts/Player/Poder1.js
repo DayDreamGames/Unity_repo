@@ -20,7 +20,7 @@ function Start () {
 	}
 }
 
-function Update() {
+function FixedUpdate() {
 	if(colisiona == false){
 		direccion = new Vector2(transform.localScale.x,0);
 		direccion *= 10;
