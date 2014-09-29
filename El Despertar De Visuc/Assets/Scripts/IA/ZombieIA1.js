@@ -62,6 +62,7 @@ function FixedUpdate () {
 		Mirar();
 		miTransform.rotation = Quaternion.Slerp(miTransform.rotation, Quaternion.LookRotation(objetivo.position - miTransform.position), rotationSpeed*Time.deltaTime);
 		miTransform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, 0, 0); 
+		player.GetComponent(Jugador).setVive(false);
 	} 
 } 
 

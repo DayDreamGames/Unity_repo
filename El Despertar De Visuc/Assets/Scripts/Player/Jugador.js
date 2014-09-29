@@ -13,6 +13,8 @@ public var GUI_Salto : GUITexture;
 public var GUI_Ata : GUITexture;
 private var grav;
 public var tieneLaLlaveDelNivel : boolean;
+public var vive : boolean = true;
+private var tiempo : int;
 
 function Awake (){
 	animator = GetComponent(Animator);
@@ -34,10 +36,16 @@ function Update (){
 	}
 }
 function FixedUpdate () {
+	if(vive == true){
+		tiempo = Time.time;
+	}else{
+		Time.timeScale = 0;
+	}
 	if(Input.touches.Length <= 0){
 		seMueve = false;
 		rigidbody2D.velocity = Vector2.zero;
 		rigidbody2D.gravityScale = 48;
+		animator.SetBool("caminar",false);
 	}else{
 		for(var i : int = 0; i < Input.touchCount; i++){
 		
@@ -63,6 +71,9 @@ function FixedUpdate () {
 						}
 					}
 				}
+				if(Input.GetTouch(i).phase == TouchPhase.Ended){
+					animator.SetBool("caminar", false);	
+				}
 			}
 			else if (GUI_Izq.guiTexture.HitTest(Input.GetTouch(i).position)){
 				if(Input.GetTouch(i).phase == TouchPhase.Stationary){
@@ -86,6 +97,9 @@ function FixedUpdate () {
 							rigidbody2D.gravityScale = 48;
 						}
 					}
+				}
+				if(Input.GetTouch(i).phase == TouchPhase.Ended){
+					animator.SetBool("caminar", false);	
 				}
 			
 			}else if (GUI_Salto.guiTexture.HitTest(Input.GetTouch(i).position)){
@@ -155,11 +169,6 @@ function OnCollisionEnter2D(collground : Collision2D){
 	}
 }
 
-function OnTrigger(collground : Collider2D){
-	if (collground.gameObject.tag == "Terreno"){
-		canjump = true;
-	}
-}
 
 function setTieneLallave(estado : boolean){
 	this.tieneLaLlaveDelNivel = estado;
@@ -168,4 +177,16 @@ function setTieneLallave(estado : boolean){
 function getTieneLallave() : boolean{
 
 	return tieneLaLlaveDelNivel;
+}
+
+function OnGUI(){
+	if(vive == false){
+		GUI.Box(Rect((Screen.height*0.625),(Screen.width*0.25),(Screen.width*0.25),(Screen.height*0.25)),"Puntuacion: " +score);
+		GUI.Label(Rect((Screen.height*0.645),(Screen.width*0.35),(Screen.width*0.25),(Screen.height*0.25)),"Tiempo Jugado: " + tiempo);
+	}
+}
+
+function setVive(estado : boolean){
+	
+	vive = estado;
 }
