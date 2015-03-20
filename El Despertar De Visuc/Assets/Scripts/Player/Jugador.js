@@ -28,15 +28,10 @@ function Start (){
 }
 
 function Update (){
-	if(Input.GetKeyDown(KeyCode.A)){
-		LanzarPoder();
-	}
-	if(Input.GetKey(KeyCode.D)){
-		transform.position += transform.right * velocidad * Time.deltaTime;
-	}
+	
 }
 function FixedUpdate () {
-	if(vive == true){
+	if(vive == true){             //si esta vivo le asigna la escala del tiempo a la variable tiempp sino, establece que la escala de tiempompasa a 0 es decir el juego se pausa
 		tiempo = Time.time;
 	}else{
 		Time.timeScale = 0;
